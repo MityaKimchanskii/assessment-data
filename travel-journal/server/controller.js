@@ -30,6 +30,13 @@ module.exports = {
                 rating INTEGER, 
                 country_id NOT NULL REFERENCES countries(country_id), 
             );
+            
+            insert into cities (name, rating, country_id)
+            values 
+            ('Kabul', 2, 1),
+            ('Tirana', 4, 2),
+            ('Algiers', 3, 1);
+
 
 
             insert into countries (name)
@@ -261,6 +268,7 @@ module.exports = {
             from cities a
             join countries u on a.country_id = u.country_id
             where a.country_id = ${countryId};
+            order by a.rating desc;
         `)
             .then(dbRes => res.status(200).send(dbRes[0]))
             .catch(err => console.log(err))
